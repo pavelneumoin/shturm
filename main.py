@@ -1147,14 +1147,27 @@ class Game:
             ("", (0, 0, 0)),
             ("JUNGLE -> CAVES -> BASE -> SKY",
              (255, 200, 100)),
-            ("", (0, 0, 0)),
-            ("M MUTE   F CRT SCANLINES", (160, 200, 240)),
         ]
         y = 165
         for text, col in lines:
             t = self.font.render(text, True, col)
             self.screen.blit(t, (SCREEN_W // 2 - t.get_width() // 2, y))
             y += 24
+
+        # audio / CRT toggles — state-aware, placed above the difficulty block
+        # (previously collided with the "< DIFFICULTY >" selector at the bottom)
+        on_col, off_col = (120, 230, 140), (130, 130, 150)
+        seg_m = self.font.render(
+            f"M MUTE: {'ON' if self.muted else 'OFF'}", True,
+            on_col if self.muted else off_col)
+        seg_c = self.font.render(
+            f"F CRT: {'ON' if self.crt else 'OFF'}", True,
+            on_col if self.crt else off_col)
+        gap = 30
+        total_w = seg_m.get_width() + gap + seg_c.get_width()
+        tx = SCREEN_W // 2 - total_w // 2
+        self.screen.blit(seg_m, (tx, SCREEN_H - 94))
+        self.screen.blit(seg_c, (tx + seg_m.get_width() + gap, SCREEN_H - 94))
 
         prompt = self.font_bold.render(
             "PRESS KEY / TAP TO START",
