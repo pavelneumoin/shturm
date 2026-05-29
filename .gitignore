@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# pygbag build cache (regenerated on every build; ~23 MB)
+build/web-cache/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local save files (game writes hi-scores here on desktop)
+*.save
+hi_scores.json
+
+# Throwaway local screenshots (kept dir: screenshots/)
+_screenshot.png
+_screenshot_sky.png
